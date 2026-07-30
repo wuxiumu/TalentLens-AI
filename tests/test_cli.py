@@ -17,7 +17,7 @@ EXAMPLES_DIR = os.path.join(PROJECT_ROOT, "examples")
 
 def run_cli(*args):
     """运行 CLI 命令并返回结果"""
-    cmd = [sys.executable, CLI_PATH] + list(args)
+    cmd = [CLI_PATH] + list(args)
     result = subprocess.run(
         cmd,
         capture_output=True,

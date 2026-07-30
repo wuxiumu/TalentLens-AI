@@ -69,7 +69,7 @@ print('Model:', s.openai_model)
 
 ```bash
 # 1. 克隆项目
-git clone <your-repo-url>
+git clone git@github.com:wuxiumu/TalentLens-AI.git
 cd TalentLens-AI
 
 # 2. 安装依赖
