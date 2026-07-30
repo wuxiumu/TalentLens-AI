@@ -2,6 +2,14 @@
 
 一个基于 AI 的简历解析与岗位匹配评分 CLI 工具，支持 PDF 简历解析、结构化信息提取、JD 匹配评分。
 
+## 🎬 演示视频
+
+我在 B 站录制了本项目的完整演示视频，欢迎观看 👇
+
+[![Bilibili 演示视频](https://img.shields.io/badge/Bilibili-演示视频-00A1D6?style=for-the-badge&logo=bilibili&logoColor=white)](https://www.bilibili.com/video/BV1Sj3t6sE8Y/?share_source=copy_web&vd_source=8bf1560c67a96f9f02c1aa54d7683a40)
+
+点击封面直接观看：https://www.bilibili.com/video/BV1Sj3t6sE8Y/
+
 ## 📖 项目简介
 
 在招聘流程中，快速理解候选人简历并判断其与岗位的匹配程度是一项常见但耗时的工作。Resume CLI 通过命令行工具的形式，让 recruiter 和 HR 可以快速：
