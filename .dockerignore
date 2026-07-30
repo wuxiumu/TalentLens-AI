@@ -1,0 +1,24 @@
+# Git
+.git/
+.gitignore
+
+# IDE
+.idea/
+.vscode/
+
+# Docs (不需要在 Docker 镜像中)
+doc/
+*.md
+!README.md
+
+# Tests
+tests/
+.pytest_cache/
+
+# Examples (太大)
+examples/*.pdf
+
+# Temp files
+__pycache__/
+*.pyc
+.env

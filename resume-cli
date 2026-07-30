@@ -1,0 +1,39 @@
+#!/bin/sh
+# ============================================
+# resume-cli 入口脚本
+# ============================================
+# 自动检测 Python 环境：
+#   1. 优先使用 .venv 虚拟环境
+#   2. 如果已激活虚拟环境，使用 $VIRTUAL_ENV
+#   3. 回退到系统 python3
+# ============================================
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# 查找 Python
+if [ -n "$VIRTUAL_ENV" ] && [ -x "$VIRTUAL_ENV/bin/python3" ]; then
+    PYTHON="$VIRTUAL_ENV/bin/python3"
+elif [ -x "$SCRIPT_DIR/.venv/bin/python3" ]; then
+    PYTHON="$SCRIPT_DIR/.venv/bin/python3"
+elif command -v python3 >/dev/null 2>&1; then
+    PYTHON="python3"
+else
+    echo "❌ 错误: 未找到 Python 3" >&2
+    echo "请先安装 Python 3.9+ 或运行: make install" >&2
+    exit 1
+fi
+
+# 检查依赖是否可用
+if ! "$PYTHON" -c "import typer" 2>/dev/null; then
+    echo "❌ 错误: Python 依赖未安装" >&2
+    echo "请运行: make install  或  pip install -r requirements.txt" >&2
+    exit 1
+fi
+
+# 运行 CLI
+exec "$PYTHON" -c "
+import sys, os
+sys.path.insert(0, '$SCRIPT_DIR')
+from resume_cli.main import cli
+cli()
+" "$@"
