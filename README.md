@@ -1,3 +1,9 @@
+# TalentLens-AI（Resume CLI）
+
+> AI **简历解析 + JD 匹配评分**，帮 HR/猎头更快筛人。当前以 CLI 交付，产品页可规划为 Web 壳。
+
+**定制 / 演示：** 微信 **qingbao199101**（备注：简历AI）｜ [wuxiumu@163.com](mailto:wuxiumu@163.com)
+
 # Resume CLI - AI 简历解析命令行工具
 
 一个基于 AI 的简历解析与岗位匹配评分 CLI 工具，支持 PDF 简历解析、结构化信息提取、JD 匹配评分。
@@ -414,3 +420,45 @@ docker run --rm resume-cli extract /app/examples/resume.pdf --mock
 ## 📄 License
 
 本项目为笔试题作品，仅供招聘评估使用。
+
+## SEO / GEO 字段预留
+
+> 产品页 / 落地页统一生成时填入；本阶段只预留字段。
+
+| 字段 | 类型 | 用途 |
+|---|---|---|
+| `seo_title` | string | `<title>` / OG title |
+| `seo_description` | string | meta description |
+| `seo_keywords` | string[] | 可选关键词 |
+| `canonical_url` | url | 规范链接 |
+| `og_image` | url | 分享图 |
+| `robots` | string | 如 `index,follow` |
+| `json_ld_type` | string | SoftwareApplication / WebPage / FAQPage |
+| `geo_region` | string | 地域业务时使用 |
+| `geo_placename` | string | 城市/地标 |
+| `geo_position` | string | 可选 lat,long |
+| `hreflang` | map | zh-CN / en |
+| `site_name` | string | 白标品牌名 |
+
+
+## 定制合作
+
+按贵司评分维度改模型提示、批量简历流水线、未来 Web 管理台白标。加微信备注「简历AI」。
+
+---
+
+## 联系方式
+
+定制、演示或合作：
+
+- 邮箱：[wuxiumu@163.com](mailto:wuxiumu@163.com)
+- 微信：**qingbao199101**（添加请备注来意）
+
+### 赞助支持
+
+如果内容对你有帮助，欢迎自愿赞助。
+
+| 微信赞赏码 | 支付宝收款码 |
+|---|---|
+| ![微信赞赏码](https://chiguashentan-test.oss-cn-beijing.aliyuncs.com/wxprogram/zan/20261002185236_31_227.png) | ![支付宝收款码](https://chiguashentan-test.oss-cn-beijing.aliyuncs.com/wxprogram/zan/20261002185309_32_227.jpg) |
+
