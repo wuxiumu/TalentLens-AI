@@ -71,6 +71,8 @@ print('Model:', s.openai_model)
 "
 ```
 
+模板里的 `sk-your-api-key-here` 会显示为未配置。换成真实 Key 后才会显示已配置。
+
 ## 📦 安装方式
 
 ### 方式一：本地安装
@@ -179,10 +181,11 @@ make demo-all    # 依次执行 parse → extract(mock) → score(mock)
 ### 测试套件
 
 ```bash
-make test        # 运行 48 个测试用例
+make smoke       # 不调用真实 API 的冒烟检查
+make test        # 运行全部测试
 ```
 
-期望结果：`48 passed in ~5 minutes`
+期望结果：`58 passed`。用例不访问网络。
 
 | 测试文件 | 用例数 | 覆盖模块 |
 |---------|--------|---------|
@@ -190,7 +193,8 @@ make test        # 运行 48 个测试用例
 | `test_jd_parser.py` | 6 | JD 文件读取 |
 | `test_ai_client.py` | 11 | JSON 解析 + 修复 |
 | `test_schemas.py` | 7 | Pydantic 数据模型 |
-| `test_cli.py` | 15 | CLI 集成测试 |
+| `test_cli.py` | 16 | CLI 集成测试 |
+| `test_config.py` | 9 | `.env` 加载与 API Key 占位符 |
 
 ### 验证清单
 
@@ -206,6 +210,7 @@ make test        # 运行 48 个测试用例
 - [ ] `./resume-cli score examples/resume.pdf --jd examples/jd.txt` 真实 AI 评分
 - [ ] `--output` 选项可保存结果到文件
 - [ ] `make demo-all` 一键演示全部命令
+- [ ] `make smoke` 在不调用真实 API 的情况下跑通 version / parse / extract / score
 - [ ] `make test` 全部测试通过
 - [ ] 日志输出到 stderr（不污染 JSON stdout）
 
@@ -371,7 +376,8 @@ TalentLens-AI/
 │   ├── test_jd_parser.py
 │   ├── test_ai_client.py
 │   ├── test_schemas.py
-│   └── test_cli.py
+│   ├── test_cli.py
+│   └── test_config.py
 ├── examples/               # 示例文件
 │   ├── resume.pdf
 │   └── jd.txt
@@ -387,6 +393,9 @@ TalentLens-AI/
 ## 🧪 测试
 
 ```bash
+# 冒烟（不调用真实 API）
+make smoke
+
 # 运行全部测试
 make test
 
@@ -396,12 +405,19 @@ python -m pytest tests/ -v
 
 ## 🐳 Docker
 
+镜像内带有 `examples/resume.pdf` 和 `examples/jd.txt`，Mock 命令不需要再挂载目录。容器以非 root 用户运行；下面的 `:ro` 挂载只读，结果打到标准输出。若要用 `--output` 写回宿主机，去掉 `:ro`，并保证该目录对容器用户可写。
+
 ```bash
 # 构建
 make docker-build
 
-# 运行（Mock 模式）
+# Mock 模式，不需要 API Key
 docker run --rm resume-cli extract /app/examples/resume.pdf --mock
+
+# 使用本机 .env 与简历文件
+docker run --rm --env-file .env \
+  -v "$PWD:/data:ro" \
+  resume-cli score /data/resume.pdf --jd /data/jd.txt
 ```
 
 ## ⚠️ 已知问题或未完成内容

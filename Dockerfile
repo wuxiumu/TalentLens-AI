@@ -2,7 +2,8 @@
 # Resume CLI Dockerfile
 # ============================================
 # 构建: docker build -t resume-cli .
-# 运行: docker run --rm -v $(pwd)/examples:/app/examples resume-cli parse /app/examples/resume.pdf
+# Mock: docker run --rm resume-cli extract /app/examples/resume.pdf --mock
+# 真实调用: docker run --rm --env-file .env -v "$PWD:/data:ro" resume-cli score /data/resume.pdf --jd /data/jd.txt
 # ============================================
 
 FROM python:3.12-slim
@@ -17,9 +18,10 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 复制项目代码
+# 复制项目代码与示例简历（Mock / 冒烟不依赖宿主机挂载）
 COPY resume_cli/ resume_cli/
 COPY resume-cli .
+COPY examples/ examples/
 RUN chmod +x resume-cli
 
 # 创建非 root 用户

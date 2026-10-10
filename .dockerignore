@@ -15,8 +15,9 @@ doc/
 tests/
 .pytest_cache/
 
-# Examples (太大)
+# 体积大的示例 PDF 不进镜像，但保留仓库自带的样例简历
 examples/*.pdf
+!examples/resume.pdf
 
 # Temp files
 __pycache__/

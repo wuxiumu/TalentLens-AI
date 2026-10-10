@@ -111,13 +111,28 @@ class TestExtractCommand:
         env = os.environ.copy()
         env.pop("OPENAI_API_KEY", None)
         r = subprocess.run(
-            [sys.executable, CLI_PATH, "extract", os.path.join(EXAMPLES_DIR, "resume.pdf")],
+            [CLI_PATH, "extract", os.path.join(EXAMPLES_DIR, "resume.pdf")],
             capture_output=True,
             text=True,
             cwd=PROJECT_ROOT,
             env=env,
         )
         assert r.returncode != 0
+        assert "OPENAI_API_KEY" in r.stderr
+
+    def test_extract_placeholder_api_key(self):
+        """模板占位符不能当作已配置的密钥"""
+        env = os.environ.copy()
+        env["OPENAI_API_KEY"] = "sk-your-api-key-here"
+        r = subprocess.run(
+            [CLI_PATH, "extract", os.path.join(EXAMPLES_DIR, "resume.pdf")],
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_ROOT,
+            env=env,
+        )
+        assert r.returncode != 0
+        assert "OPENAI_API_KEY" in r.stderr
 
 
 class TestScoreCommand:
