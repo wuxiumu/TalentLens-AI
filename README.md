@@ -283,7 +283,7 @@ resume-cli score ./resume.pdf --jd ./jd.txt --mock --output score.json
 {
   "file": "examples/resume.pdf",
   "pages": 1,
-  "file_size": "2.4 KB",
+  "file_size": "2.5 KB",
   "text_length": 814,
   "content": "张三\n电话: 138-0013-8000\n..."
 }
