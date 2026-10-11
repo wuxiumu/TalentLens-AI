@@ -7,6 +7,6 @@ PyMuPDF>=1.24.0
 # Optional dependencies (for enhanced output)
 rich>=13.0.0
 
-# Dev dependencies (install with: pip install -e ".[dev]")
+# Test dependencies（与运行依赖一起安装，仓库没有可安装的 extras）
 pytest>=7.0.0
 pytest-mock>=3.0.0

@@ -65,6 +65,14 @@ demo-all: demo-parse demo-extract demo-score ## 演示全部命令
 
 # ---- 测试 ----
 
+.PHONY: smoke
+smoke: ## 冒烟：不调用真实 API（version / parse / extract --mock / score --mock）
+	$(CLI) --version
+	$(CLI) parse $(EXAMPLES_DIR)/resume.pdf
+	$(CLI) extract $(EXAMPLES_DIR)/resume.pdf --mock
+	$(CLI) score $(EXAMPLES_DIR)/resume.pdf --jd $(EXAMPLES_DIR)/jd.txt --mock
+	@echo "✅ 冒烟通过（未调用真实 API）"
+
 .PHONY: test
 test: ## 运行测试
 	$(PYTHON) -m pytest tests/ -v
